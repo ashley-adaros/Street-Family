@@ -147,14 +147,22 @@ function App() {
         </section>
 
         <section id="club" className="intro section-pad">
-          <div className="section-label">01 / EL CLUB</div>
-          <div className="intro-grid">
-            <div className="logo-wrap"><img src={logo} alt="Logo Street Family Moto Group" /><span className="logo-ring" /></div>
-            <div className="intro-copy">
-              <p className="eyebrow">UNA FAMILIA SOBRE DOS RUEDAS</p>
-              <h2>No se trata solo<br /><em>de motos.</em></h2>
-              <p>Street Family nace de la pasión por las motocicletas, la personalización y la carretera. Un grupo donde cada máquina tiene personalidad y cada salida suma una historia.</p>
-              <div className="stats"><div><strong>01</strong><span>FAMILIA</span></div><div><strong>∞</strong><span>KILÓMETROS</span></div><div><strong>24/7</strong><span>PASIÓN</span></div></div>
+          <div className="intro-bg" style={{ backgroundImage: `url(${tank})` }} />
+          <div className="intro-overlay" />
+          <div className="intro-content">
+            <div className="section-label">01 / EL CLUB</div>
+            <div className="intro-grid">
+              <div className="logo-wrap">
+                <div className="logo-glow" />
+                <img src={logo} alt="Logo Street Family Moto Group" />
+                <span className="logo-ring" />
+              </div>
+              <div className="intro-copy">
+                <p className="eyebrow">UNA FAMILIA SOBRE DOS RUEDAS</p>
+                <h2>NO SE TRATA SOLO<br /><em>DE MOTOS.</em></h2>
+                <p>Street Family nace de la pasión por las motocicletas, la personalización y la carretera. Un grupo donde cada máquina tiene personalidad y cada salida suma una historia.</p>
+                <div className="stats"><div><strong>01</strong><span>FAMILIA</span></div><div><strong>∞</strong><span>KILÓMETROS</span></div><div><strong>24/7</strong><span>PASIÓN</span></div></div>
+              </div>
             </div>
           </div>
         </section>

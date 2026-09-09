@@ -1,0 +1,222 @@
+[
+  {
+    "id": "part_0",
+    "file": "part_0.png",
+    "exploded_x": 1164,
+    "exploded_y": 812,
+    "assembled_x": 396,
+    "assembled_y": 279,
+    "w": 151,
+    "h": 135,
+    "match_score": 0.9393987059593201
+  },
+  {
+    "id": "part_1",
+    "file": "part_1.png",
+    "exploded_x": 440,
+    "exploded_y": 782,
+    "assembled_x": 618,
+    "assembled_y": 86,
+    "w": 61,
+    "h": 77,
+    "match_score": 0.8779621720314026
+  },
+  {
+    "id": "part_2",
+    "file": "part_2.png",
+    "exploded_x": 740,
+    "exploded_y": 781,
+    "assembled_x": 742,
+    "assembled_y": 783,
+    "w": 175,
+    "h": 98,
+    "match_score": 0.8384102582931519
+  },
+  {
+    "id": "part_3",
+    "file": "part_3.png",
+    "exploded_x": 1287,
+    "exploded_y": 727,
+    "assembled_x": 1285,
+    "assembled_y": 731,
+    "w": 96,
+    "h": 85,
+    "match_score": 0.8953719735145569
+  },
+  {
+    "id": "part_4",
+    "file": "part_4.png",
+    "exploded_x": 772,
+    "exploded_y": 698,
+    "assembled_x": 772,
+    "assembled_y": 705,
+    "w": 97,
+    "h": 74,
+    "match_score": 0.9666129350662231
+  },
+  {
+    "id": "part_5",
+    "file": "part_5.png",
+    "exploded_x": 82,
+    "exploded_y": 688,
+    "assembled_x": 1042,
+    "assembled_y": 297,
+    "w": 114,
+    "h": 250,
+    "match_score": 0.9449753165245056
+  },
+  {
+    "id": "part_6",
+    "file": "part_6.png",
+    "exploded_x": 1302,
+    "exploded_y": 665,
+    "assembled_x": 1301,
+    "assembled_y": 671,
+    "w": 114,
+    "h": 90,
+    "match_score": 0.9662699103355408
+  },
+  {
+    "id": "part_7",
+    "file": "part_7.png",
+    "exploded_x": 241,
+    "exploded_y": 654,
+    "assembled_x": 279,
+    "assembled_y": 651,
+    "w": 178,
+    "h": 205,
+    "match_score": 0.9438369870185852
+  },
+  {
+    "id": "part_8",
+    "file": "part_8.png",
+    "exploded_x": 429,
+    "exploded_y": 592,
+    "assembled_x": 624,
+    "assembled_y": 352,
+    "w": 128,
+    "h": 255,
+    "match_score": 0.8389725089073181
+  },
+  {
+    "id": "part_9",
+    "file": "part_9.png",
+    "exploded_x": 689,
+    "exploded_y": 585,
+    "assembled_x": 695,
+    "assembled_y": 591,
+    "w": 118,
+    "h": 131,
+    "match_score": 0.9203145503997803
+  },
+  {
+    "id": "part_10",
+    "file": "part_10.png",
+    "exploded_x": 739,
+    "exploded_y": 543,
+    "assembled_x": 748,
+    "assembled_y": 555,
+    "w": 142,
+    "h": 95,
+    "match_score": 0.8612290620803833
+  },
+  {
+    "id": "part_11",
+    "file": "part_11.png",
+    "exploded_x": 671,
+    "exploded_y": 543,
+    "assembled_x": 681,
+    "assembled_y": 554,
+    "w": 112,
+    "h": 88,
+    "match_score": 0.8882309794425964
+  },
+  {
+    "id": "part_12",
+    "file": "part_12.png",
+    "exploded_x": 581,
+    "exploded_y": 541,
+    "assembled_x": 589,
+    "assembled_y": 546,
+    "w": 202,
+    "h": 291,
+    "match_score": 0.8865249156951904
+  },
+  {
+    "id": "part_13",
+    "file": "part_13.png",
+    "exploded_x": 184,
+    "exploded_y": 523,
+    "assembled_x": 214,
+    "assembled_y": 532,
+    "w": 289,
+    "h": 177,
+    "match_score": 0.9604116082191467
+  },
+  {
+    "id": "part_14",
+    "file": "part_14.png",
+    "exploded_x": 495,
+    "exploded_y": 427,
+    "assembled_x": 521,
+    "assembled_y": 446,
+    "w": 94,
+    "h": 100,
+    "match_score": 0.9281096458435059
+  },
+  {
+    "id": "part_15",
+    "file": "part_15.png",
+    "exploded_x": 493,
+    "exploded_y": 337,
+    "assembled_x": 167,
+    "assembled_y": 621,
+    "w": 83,
+    "h": 88,
+    "match_score": 0.9213860630989075
+  },
+  {
+    "id": "part_16",
+    "file": "part_16.png",
+    "exploded_x": 449,
+    "exploded_y": 309,
+    "assembled_x": 474,
+    "assembled_y": 325,
+    "w": 98,
+    "h": 114,
+    "match_score": 0.9566291570663452
+  },
+  {
+    "id": "part_17",
+    "file": "part_17.png",
+    "exploded_x": 553,
+    "exploded_y": 283,
+    "assembled_x": 562,
+    "assembled_y": 294,
+    "w": 1068,
+    "h": 581,
+    "match_score": 0.8699094653129578
+  },
+  {
+    "id": "part_18",
+    "file": "part_18.png",
+    "exploded_x": 761,
+    "exploded_y": 227,
+    "assembled_x": 778,
+    "assembled_y": 266,
+    "w": 68,
+    "h": 70,
+    "match_score": 0.9771385192871094
+  },
+  {
+    "id": "part_19",
+    "file": "part_19.png",
+    "exploded_x": 808,
+    "exploded_y": 123,
+    "assembled_x": 826,
+    "assembled_y": 170,
+    "w": 101,
+    "h": 74,
+    "match_score": 0.9889231324195862
+  }
+]
