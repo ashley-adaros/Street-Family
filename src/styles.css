@@ -23,4 +23,4 @@
 
 .floating-skull{position:absolute;pointer-events:none;mix-blend-mode:screen;opacity:0.9;z-index:10;width:100px;height:100px;object-fit:contain;-webkit-mask-image:radial-gradient(circle,black 50%,transparent 70%);mask-image:radial-gradient(circle,black 50%,transparent 70%)}
 
-main { position: relative; overflow: hidden; }
+
