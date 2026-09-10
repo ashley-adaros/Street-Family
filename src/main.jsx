@@ -164,7 +164,6 @@ function App() {
           ))}
           <div className="hero-overlay" />
           <div className="hero-content" style={{position: 'relative', zIndex: 1}}>
-            <img src={skull1} style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 'clamp(350px, 60vw, 800px)', opacity: 0.7, zIndex: -1, pointerEvents: 'none', mixBlendMode: 'screen', WebkitMaskImage: 'radial-gradient(circle, black 40%, transparent 70%)', maskImage: 'radial-gradient(circle, black 40%, transparent 70%)'}} alt="" />
             <div className="hero-kicker"><span /> MOTO GROUP · ARICA <span /></div>
             <h1 className="hero-title"><span>STREET</span><span>FAMILY</span></h1>
             <p className="hero-copy">CUSTOM · BROTHERHOOD · ROAD</p>
