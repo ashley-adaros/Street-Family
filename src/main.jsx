@@ -18,13 +18,13 @@ import aricaSunset from './assets/arica_sunset.jpg';
 import explodedVideo from './assets/gillette-frames/gillette-subi-exploded-new.webm';
 
 const gallery = [
-  { src: aricaSunset, title: 'Nuestra Ciudad', text: 'Rodando por Arica al atardecer.' },
-  { src: aricaRide, title: 'Hacia el Morro', text: 'Street Family en su territorio.' },
   { src: sunset, title: 'Rodar juntos', text: 'Atardeceres, carretera y kilómetros compartidos.' },
   { src: road, title: 'Sin destino fijo', text: 'La ruta es parte de la historia.' },
   { src: city, title: 'Street life', text: 'La familia también vive la ciudad.' },
   { src: ride, title: 'La máquina', text: 'Custom, carácter y personalidad.' },
   { src: tank, title: 'Detalles', text: 'Cada pieza cuenta una historia.' },
+  { src: aricaSunset, title: 'Nuestra Ciudad', text: 'Rodando por Arica al atardecer.' },
+  { src: aricaRide, title: 'Hacia el Morro', text: 'Street Family en su territorio.' },
 ];
 
 function App() {
