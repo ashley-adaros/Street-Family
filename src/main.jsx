@@ -259,14 +259,17 @@ function App() {
         </section>
 
         <section id="contacto" className="contact section-pad">
-          <div className="contact-inner reveal-up">
+          <div className="contact-bg" style={{ backgroundImage: `url(${road})` }} />
+          <div className="contact-overlay" />
+          <div className="contact-inner reveal-up" style={{position: 'relative', zIndex: 1}}>
+            <img src={skull2} style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 'clamp(400px, 60vw, 800px)', opacity: 0.7, zIndex: -1, pointerEvents: 'none', mixBlendMode: 'screen', WebkitMaskImage: 'radial-gradient(circle, black 40%, transparent 70%)', maskImage: 'radial-gradient(circle, black 40%, transparent 70%)'}} alt="" />
             <p className="eyebrow">¿NOS VEMOS EN LA RUTA?</p>
             <h2>STREET<br /><em>FAMILY.</em></h2>
             <p>La carretera es más grande cuando se comparte.</p>
             <div className="contact-actions">
               <a href="https://www.facebook.com/share/1FHT1XmUjg/" target="_blank" rel="noopener noreferrer" className="btn facebook-btn">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{marginRight: '10px', marginTop: '-2px'}}><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                FACEBOOK
+                <span>FACEBOOK</span>
               </a>
             </div>
           </div>
