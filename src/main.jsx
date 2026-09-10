@@ -13,7 +13,6 @@ import city from './assets/city.jpg';
 import sunset from './assets/sunset.jpg';
 import ride from './assets/ride.jpg';
 import gillette from './assets/gillette-subi.jpg';
-import aricaRide from './assets/arica_ride.png';
 import aricaSunset from './assets/arica_sunset.jpg';
 import explodedVideo from './assets/gillette-frames/gillette-subi-exploded-new.webm';
 
@@ -23,8 +22,7 @@ const gallery = [
   { src: city, title: 'Street life', text: 'La familia también vive la ciudad.' },
   { src: ride, title: 'La máquina', text: 'Custom, carácter y personalidad.' },
   { src: tank, title: 'Detalles', text: 'Cada pieza cuenta una historia.' },
-  { src: aricaSunset, title: 'Nuestra Ciudad', text: 'Rodando por Arica al atardecer.' },
-  { src: aricaRide, title: 'Hacia el Morro', text: 'Street Family en su territorio.' },
+  { src: aricaSunset, title: 'Nuestra Ciudad', text: 'Rodando por Arica al atardecer.', style: { objectPosition: 'center top' } },
 ];
 
 function App() {
@@ -242,7 +240,7 @@ function App() {
           <div className="gallery-carousel reveal-up" ref={galleryRef}>
             {gallery.map((item, idx) => (
               <div key={idx} className="gallery-slide">
-                <img src={item.src} alt={item.title} />
+                <img src={item.src} alt={item.title} style={item.style || {}} />
                 <div className="slide-caption">
                   <span>STREET FAMILY / {String(idx + 1).padStart(2, '0')}</span>
                   <h3>{item.title}</h3>
