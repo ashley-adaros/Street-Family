@@ -72,56 +72,44 @@ function App() {
   }, []);
 
   useEffect(() => {
-    let animationFrameId;
-    let targetTime = 0;
-    let currentVideoTime = 0;
-    let isSeeking = false;
-
-    const renderLoop = () => {
+    let ctx;
+    if (motoVideoRef.current && motoSectionRef.current) {
       const video = motoVideoRef.current;
-      if (video && video.readyState >= 1) {
-        // Clamp target time to actual video duration to prevent infinite seek freezing
-        const maxTime = video.duration || EXPLODED_TIME;
-        const clampedTarget = Math.min(targetTime, maxTime - 0.1);
-        
-        currentVideoTime += (clampedTarget - currentVideoTime) * 0.1;
-        
-        if (Math.abs(video.currentTime - currentVideoTime) > 0.05 && !isSeeking) {
-           isSeeking = true;
-           video.currentTime = currentVideoTime;
-           // Wait for seek to finish to avoid spamming the decoder
-           video.addEventListener('seeked', function onSeeked() {
-              isSeeking = false;
-              video.removeEventListener('seeked', onSeeked);
-           }, { once: true });
-        }
-      }
-      animationFrameId = requestAnimationFrame(renderLoop);
-    };
-    
-    renderLoop();
+      
+      const setupScroll = () => {
+        ctx = gsap.context(() => {
+          gsap.to(video, {
+            currentTime: EXPLODED_TIME,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: motoSectionRef.current,
+              start: 'top top',
+              end: 'bottom bottom',
+              scrub: 1, // 1 second smoothing
+              onUpdate: (self) => {
+                setDisassembled(self.progress > 0.85);
+              }
+            }
+          });
+        });
+      };
 
+      if (video.readyState >= 1) {
+        setupScroll();
+      } else {
+        video.addEventListener('loadedmetadata', setupScroll, { once: true });
+      }
+    }
+    
     const onScroll = () => {
       const y = window.scrollY;
       if (heroRef.current) heroRef.current.style.setProperty('--parallax', `${Math.round(y * 0.16)}px`);
-      
-      if (motoSectionRef.current) {
-        const rect = motoSectionRef.current.getBoundingClientRect();
-        const scrollDistance = rect.height - window.innerHeight;
-        const progress = Math.max(0, Math.min(1, -rect.top / scrollDistance));
-        
-        if (progress <= 0.5) {
-          targetTime = (progress / 0.5) * EXPLODED_TIME;
-        } else {
-          targetTime = EXPLODED_TIME - ((progress - 0.5) / 0.5) * EXPLODED_TIME;
-        }
-        setDisassembled(targetTime >= EXPLODED_TIME - 0.8);
-      }
     };
     window.addEventListener('scroll', onScroll, { passive: true });
+    
     return () => {
       window.removeEventListener('scroll', onScroll);
-      cancelAnimationFrame(animationFrameId);
+      if (ctx) ctx.revert();
     };
   }, []);
 
