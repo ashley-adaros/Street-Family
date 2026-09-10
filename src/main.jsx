@@ -71,32 +71,67 @@ function App() {
     return () => ctx.revert();
   }, []);
 
-  useEffect(() => {
-    let ctx;
-    const video = motoVideoRef.current;
-    if (!video || !motoSectionRef.current) return;
+  const motoCanvasRef = useRef(null);
+  const [framesLoaded, setFramesLoaded] = useState(0);
+  const framesRef = useRef([]);
 
-    const setupScroll = () => {
-      ctx = gsap.context(() => {
-        let tl = gsap.timeline({
+  useEffect(() => {
+    const video = motoVideoRef.current;
+    const canvas = motoCanvasRef.current;
+    if (!video || !canvas) return;
+
+    let ctxGSAP;
+    const loadFrames = async () => {
+      const ctx = canvas.getContext('2d', { alpha: false });
+      canvas.width = video.videoWidth || 1920;
+      canvas.height = video.videoHeight || 1080;
+      
+      const totalFrames = Math.floor(EXPLODED_TIME * 30); // 30 fps
+      
+      for (let i = 0; i <= totalFrames; i++) {
+        video.currentTime = i / 30;
+        await new Promise(resolve => {
+          video.addEventListener('seeked', resolve, { once: true });
+        });
+        const offscreenCanvas = document.createElement('canvas');
+        offscreenCanvas.width = canvas.width;
+        offscreenCanvas.height = canvas.height;
+        offscreenCanvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+        framesRef.current.push(offscreenCanvas);
+        setFramesLoaded(Math.round((i / totalFrames) * 100));
+      }
+      
+      // Initial draw
+      ctx.drawImage(framesRef.current[0], 0, 0);
+
+      // Setup GSAP
+      ctxGSAP = gsap.context(() => {
+        const proxy = { frame: 0 };
+        gsap.to(proxy, {
+          frame: totalFrames,
+          ease: 'none',
           scrollTrigger: {
             trigger: motoSectionRef.current,
             start: 'top top',
             end: 'bottom bottom',
-            scrub: 0.8, // Smooth the scrubbing to mask video decode lag
+            scrub: 0.5,
             onUpdate: (self) => {
+              const frameIdx = Math.min(Math.round(proxy.frame), totalFrames);
+              if (framesRef.current[frameIdx]) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(framesRef.current[frameIdx], 0, 0);
+              }
               setDisassembled(self.progress > 0.85);
             }
           }
         });
-        tl.fromTo(video, { currentTime: 0 }, { currentTime: EXPLODED_TIME, ease: 'none' });
       });
     };
 
-    if (video.readyState >= 1) {
-      setupScroll();
+    if (video.readyState >= 2) {
+      loadFrames();
     } else {
-      video.addEventListener('loadedmetadata', setupScroll, { once: true });
+      video.addEventListener('loadeddata', loadFrames, { once: true });
     }
 
     const onScroll = () => {
@@ -107,7 +142,7 @@ function App() {
     
     return () => {
       window.removeEventListener('scroll', onScroll);
-      if (ctx) ctx.revert();
+      if (ctxGSAP) ctxGSAP.revert();
     };
   }, []);
 
@@ -224,14 +259,26 @@ function App() {
               <div className="moto-image-wrap" ref={motoRef}>
                 <video
                   ref={motoVideoRef}
-                  className="moto-video moto-frame"
                   src={explodedVideo}
                   muted
                   playsInline
                   preload="auto"
-                  aria-label={disassembled ? 'Honda Steed Gillette Subi en vista explotada' : 'Honda Steed Gillette Subi'}
-                  onLoadedMetadata={(e) => { e.currentTarget.currentTime = 0; }}
+                  style={{ display: 'none' }}
                 />
+                <canvas 
+                  ref={motoCanvasRef} 
+                  className="moto-video moto-frame" 
+                  style={{ width: '100%', height: '100%', objectFit: 'contain', opacity: framesLoaded < 100 ? 0 : 1, transition: 'opacity 0.5s ease' }}
+                />
+                {framesLoaded < 100 && (
+                  <div className="moto-loader">
+                    <div className="loader-text">CALIBRANDO MÁQUINA</div>
+                    <div className="loader-bar">
+                      <div className="loader-fill" style={{ width: `${framesLoaded}%` }} />
+                    </div>
+                    <div className="loader-pct">{framesLoaded}%</div>
+                  </div>
+                )}
                 <div className="scanline" />
               </div>
               <div className="moto-status"><span className={disassembled ? 'dot hot' : 'dot'} />{disassembled ? 'VISTA EXPLOTADA' : 'MÁQUINA LISTA'}</div>
