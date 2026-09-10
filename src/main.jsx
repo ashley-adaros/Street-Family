@@ -71,40 +71,68 @@ function App() {
     return () => ctx.revert();
   }, []);
 
-  useEffect(() => {
-    let ctx;
-    if (motoVideoRef.current && motoSectionRef.current) {
-      const video = motoVideoRef.current;
-      
-      const setupScroll = () => {
-        ctx = gsap.context(() => {
-          const proxy = { time: 0 };
-          gsap.to(proxy, {
-            time: EXPLODED_TIME,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: motoSectionRef.current,
-              start: 'top top',
-              end: 'bottom bottom',
-              scrub: 0.5,
-              onUpdate: (self) => {
-                if (video.readyState >= 1) {
-                  video.currentTime = proxy.time;
-                  setDisassembled(self.progress > 0.85);
-                }
-              }
-            }
-          });
-        });
-      };
+  const motoCanvasRef = useRef(null);
+  const [framesLoaded, setFramesLoaded] = useState(0);
+  const framesRef = useRef([]);
 
-      if (video.readyState >= 1) {
-        setupScroll();
-      } else {
-        video.addEventListener('loadedmetadata', setupScroll, { once: true });
+  useEffect(() => {
+    const video = motoVideoRef.current;
+    const canvas = motoCanvasRef.current;
+    if (!video || !canvas) return;
+
+    let ctxGSAP;
+    const loadFrames = async () => {
+      const ctx = canvas.getContext('2d', { alpha: false });
+      canvas.width = video.videoWidth || 1920;
+      canvas.height = video.videoHeight || 1080;
+      
+      const totalFrames = Math.floor(EXPLODED_TIME * 30); // 30 fps
+      
+      for (let i = 0; i <= totalFrames; i++) {
+        video.currentTime = i / 30;
+        await new Promise(resolve => {
+          video.addEventListener('seeked', resolve, { once: true });
+        });
+        const offscreenCanvas = document.createElement('canvas');
+        offscreenCanvas.width = canvas.width;
+        offscreenCanvas.height = canvas.height;
+        offscreenCanvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+        framesRef.current.push(offscreenCanvas);
+        setFramesLoaded(Math.round((i / totalFrames) * 100));
       }
+      
+      // Initial draw
+      ctx.drawImage(framesRef.current[0], 0, 0);
+
+      // Setup GSAP
+      ctxGSAP = gsap.context(() => {
+        const proxy = { frame: 0 };
+        gsap.to(proxy, {
+          frame: totalFrames,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: motoSectionRef.current,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 0.5,
+            onUpdate: (self) => {
+              const frameIdx = Math.min(Math.round(proxy.frame), totalFrames);
+              if (framesRef.current[frameIdx]) {
+                ctx.drawImage(framesRef.current[frameIdx], 0, 0);
+              }
+              setDisassembled(self.progress > 0.85);
+            }
+          }
+        });
+      });
+    };
+
+    if (video.readyState >= 2) {
+      loadFrames();
+    } else {
+      video.addEventListener('loadeddata', loadFrames, { once: true });
     }
-    
+
     const onScroll = () => {
       const y = window.scrollY;
       if (heroRef.current) heroRef.current.style.setProperty('--parallax', `${Math.round(y * 0.16)}px`);
@@ -113,7 +141,7 @@ function App() {
     
     return () => {
       window.removeEventListener('scroll', onScroll);
-      if (ctx) ctx.revert();
+      if (ctxGSAP) ctxGSAP.revert();
     };
   }, []);
 
@@ -230,14 +258,22 @@ function App() {
               <div className="moto-image-wrap" ref={motoRef}>
                 <video
                   ref={motoVideoRef}
-                  className="moto-video moto-frame"
                   src={explodedVideo}
                   muted
                   playsInline
                   preload="auto"
-                  aria-label={disassembled ? 'Honda Steed Gillette Subi en vista explotada' : 'Honda Steed Gillette Subi'}
-                  onLoadedMetadata={(e) => { e.currentTarget.currentTime = 0; }}
+                  style={{ display: 'none' }}
                 />
+                <canvas 
+                  ref={motoCanvasRef} 
+                  className="moto-video moto-frame" 
+                  style={{ width: '100%', height: '100%', objectFit: 'contain', opacity: framesLoaded < 100 ? 0 : 1, transition: 'opacity 0.5s ease' }}
+                />
+                {framesLoaded < 100 && (
+                  <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', color: '#fff', fontSize: '14px', zIndex: 10, background: 'rgba(0,0,0,0.8)', padding: '10px 20px', borderRadius: '20px', border: '1px solid #333' }}>
+                    CALIBRANDO MÁQUINA: {framesLoaded}%
+                  </div>
+                )}
                 <div className="scanline" />
               </div>
               <div className="moto-status"><span className={disassembled ? 'dot hot' : 'dot'} />{disassembled ? 'VISTA EXPLOTADA' : 'MÁQUINA LISTA'}</div>
