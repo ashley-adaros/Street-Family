@@ -197,7 +197,7 @@ function App() {
           <div className="moto-sticky">
             <div className="section-label reveal-up">02 / CUSTOM BUILD</div>
             <div className="moto-heading reveal-up">
-              <div><p className="eyebrow">LA PROTAGONISTA</p><h2>HONDA <em>STEED</em></h2></div>
+              <div><h2>HONDA <em>STEED</em></h2></div>
               <p>Una custom con identidad propia.</p>
             </div>
             <div className="moto-stage moto-stage-video reveal-up">
