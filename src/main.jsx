@@ -24,7 +24,7 @@ const gallery = [
   { src: ride, title: 'La máquina', text: 'Custom, carácter y personalidad.' },
   { src: tank, title: 'Detalles', text: 'Cada pieza cuenta una historia.' },
   { src: aricaSunset, title: 'Nuestra Ciudad', text: 'Rodando por Arica al atardecer.' },
-  { src: coastalRide, title: 'Ruta Costera', text: 'Bordeando la costa con la familia.' },
+  { src: coastalRide, title: 'Ruta', text: 'Ruta en familia' },
 ];
 
 function App() {
