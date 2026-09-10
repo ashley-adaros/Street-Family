@@ -24,3 +24,5 @@
 .floating-skull{position:absolute;pointer-events:none;mix-blend-mode:screen;opacity:0.9;z-index:10;width:100px;height:100px;object-fit:contain;-webkit-mask-image:radial-gradient(circle,black 50%,transparent 70%);mask-image:radial-gradient(circle,black 50%,transparent 70%)}
 
 
+
+@media (max-width: 800px) { .floating-skull { opacity: 0.2 !important; max-width: 60px !important; max-height: 60px !important; } }
