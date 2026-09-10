@@ -15,6 +15,8 @@ import ride from './assets/ride.jpg';
 import gillette from './assets/gillette-subi.jpg';
 import aricaSunset from './assets/arica_sunset.jpg';
 import coastalRide from './assets/coastal_ride.jpg';
+import skull1 from './assets/skull1.jpg';
+import skull2 from './assets/skull2.jpg';
 import explodedVideo from './assets/gillette-frames/gillette-subi-exploded-new.webm';
 
 const gallery = [
@@ -61,6 +63,18 @@ function App() {
           opacity: 0,
           duration: 0.8,
           ease: 'power3.out'
+        });
+      });
+
+      gsap.utils.toArray('.parallax-skull').forEach((elem) => {
+        gsap.to(elem, {
+          y: -150,
+          scrollTrigger: {
+            trigger: elem.parentElement,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true,
+          }
         });
       });
     });
@@ -172,6 +186,8 @@ function App() {
         </section>
 
         <section id="club" className="intro section-pad">
+          <img src={skull1} className="floating-skull skull-1 parallax-skull" alt="" />
+          <img src={skull2} className="floating-skull skull-2 parallax-skull" alt="" />
           <div className="intro-bg" style={{ backgroundImage: `url(${tank})` }} />
           <div className="intro-overlay" />
           <div className="intro-content">
@@ -254,6 +270,7 @@ function App() {
         </section>
 
         <section id="contacto" className="contact section-pad">
+          <img src={skull2} className="floating-skull skull-3 parallax-skull" alt="" />
           <div className="contact-inner reveal-up">
             <p className="eyebrow">¿NOS VEMOS EN LA RUTA?</p>
             <h2>STREET<br /><em>FAMILY.</em></h2>
