@@ -191,10 +191,6 @@ function App() {
             <div className="hero-kicker"><span /> MOTO GROUP · ARICA <span /></div>
             <h1 className="hero-title"><span>STREET</span><span>FAMILY</span></h1>
             <p className="hero-copy">CUSTOM · BROTHERHOOD · ROAD</p>
-            <div className="hero-actions">
-              <button className="btn primary" onClick={() => scrollTo('gillette')}>VER LA HONDA STEED <b>↓</b></button>
-              <button className="btn ghost" onClick={() => scrollTo('club')}>CONOCER EL CLUB</button>
-            </div>
           </div>
           <div className="hero-scroll">SCROLL <span>↓</span></div>
           <img src={skull1} className="floating-skull parallax-skull" style={{top: '80%', left: '10%', width: '95px', transform: 'rotate(-10deg)'}} alt="" />
