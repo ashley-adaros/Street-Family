@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { gsap } from 'gsap';
 import './styles.css';
 
-import logo from './assets/logo.jpg';
+import logo from './assets/logo_new.jpg';
 import road from './assets/road_sharp.jpg';
 import tank from './assets/tank.jpg';
 import city from './assets/city.jpg';
@@ -197,7 +197,7 @@ function App() {
         </section>
 
         <section className="quote">
-          <div className="quote-bg" style={{ backgroundImage: `url(${sunset})` }} />
+          <div className="quote-bg" style={{ backgroundImage: `url(${road})` }} />
           <div className="quote-overlay" />
           <div className="quote-content"><span>“</span><h2>NO SE TRATA<br />DEL DESTINO.<br /><em>SE TRATA DEL CAMINO.</em></h2><small>— STREET FAMILY</small></div>
         </section>
