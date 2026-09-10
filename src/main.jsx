@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './styles.css';
+
+gsap.registerPlugin(ScrollTrigger);
 
 import logo from './assets/logo_new.jpg';
 import road from './assets/road_sharp.jpg';
@@ -10,9 +13,13 @@ import city from './assets/city.jpg';
 import sunset from './assets/sunset.jpg';
 import ride from './assets/ride.jpg';
 import gillette from './assets/gillette-subi.jpg';
+import aricaRide from './assets/arica_ride.png';
+import aricaSunset from './assets/arica_sunset.jpg';
 import explodedVideo from './assets/gillette-frames/gillette-subi-exploded-new.webm';
 
 const gallery = [
+  { src: aricaSunset, title: 'Nuestra Ciudad', text: 'Rodando por Arica al atardecer.' },
+  { src: aricaRide, title: 'Hacia el Morro', text: 'Street Family en su territorio.' },
   { src: sunset, title: 'Rodar juntos', text: 'Atardeceres, carretera y kilómetros compartidos.' },
   { src: road, title: 'Sin destino fijo', text: 'La ruta es parte de la historia.' },
   { src: city, title: 'Street life', text: 'La familia también vive la ciudad.' },
@@ -39,6 +46,24 @@ function App() {
       gsap.from('.hero-copy', { y: 20, opacity: 0, duration: .8, delay: .7 });
       gsap.from('.hero-actions', { y: 20, opacity: 0, duration: .8, delay: .85 });
     }, heroRef);
+    return () => ctx.revert();
+  }, []);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.utils.toArray('.reveal-up').forEach((elem) => {
+        gsap.from(elem, {
+          scrollTrigger: {
+            trigger: elem,
+            start: 'top 85%',
+          },
+          y: 40,
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power3.out'
+        });
+      });
+    });
     return () => ctx.revert();
   }, []);
 
@@ -150,14 +175,14 @@ function App() {
           <div className="intro-bg" style={{ backgroundImage: `url(${tank})` }} />
           <div className="intro-overlay" />
           <div className="intro-content">
-            <div className="section-label">01 / EL CLUB</div>
+            <div className="section-label reveal-up">01 / EL CLUB</div>
             <div className="intro-grid">
-              <div className="logo-wrap">
+              <div className="logo-wrap reveal-up">
                 <div className="logo-glow" />
                 <img src={logo} alt="Logo Street Family Moto Group" />
                 <span className="logo-ring" />
               </div>
-              <div className="intro-copy">
+              <div className="intro-copy reveal-up">
                 <p className="eyebrow">UNA FAMILIA SOBRE DOS RUEDAS</p>
                 <h2>NO SE TRATA SOLO<br /><em>DE MOTOS.</em></h2>
                 <p>Street Family nace de la pasión por las motocicletas, la personalización y la carretera. Un grupo donde cada máquina tiene personalidad y cada salida suma una historia.</p>
@@ -169,12 +194,12 @@ function App() {
 
         <section id="gillette" className="moto-section" ref={motoSectionRef}>
           <div className="moto-sticky">
-            <div className="section-label">02 / CUSTOM BUILD</div>
-            <div className="moto-heading">
+            <div className="section-label reveal-up">02 / CUSTOM BUILD</div>
+            <div className="moto-heading reveal-up">
               <div><p className="eyebrow">LA PROTAGONISTA</p><h2>HONDA <em>STEED</em></h2></div>
-              <p>Una custom con identidad propia. Haz scroll para ver cómo pasa de máquina terminada a una vista explotada y vuelve a armarse.</p>
+              <p>Una custom con identidad propia.</p>
             </div>
-            <div className="moto-stage moto-stage-video">
+            <div className="moto-stage moto-stage-video reveal-up">
               <div className="moto-glow" />
               <div className="moto-grid" />
               <div className="moto-image-wrap" ref={motoRef}>
@@ -199,12 +224,12 @@ function App() {
         <section className="quote">
           <div className="quote-bg" style={{ backgroundImage: `url(${road})` }} />
           <div className="quote-overlay" />
-          <div className="quote-content"><span>“</span><h2>NO SE TRATA<br />DEL DESTINO.<br /><em>SE TRATA DEL CAMINO.</em></h2><small>— STREET FAMILY</small></div>
+          <div className="quote-content reveal-up"><span>“</span><h2>NO SE TRATA<br />DEL DESTINO.<br /><em>SE TRATA DEL CAMINO.</em></h2><small>— STREET FAMILY</small></div>
         </section>
 
         <section id="galeria" className="gallery section-pad">
-          <div className="section-label">03 / GALERÍA</div>
-          <div className="gallery-head">
+          <div className="section-label reveal-up">03 / GALERÍA</div>
+          <div className="gallery-head reveal-up">
             <div>
               <p className="eyebrow">MEMORIAS DE LA RUTA</p>
               <h2>EN LA <em>CALLE</em></h2>
@@ -214,7 +239,7 @@ function App() {
               <button onClick={() => scrollGallery(1)}>→</button>
             </div>
           </div>
-          <div className="gallery-carousel" ref={galleryRef}>
+          <div className="gallery-carousel reveal-up" ref={galleryRef}>
             {gallery.map((item, idx) => (
               <div key={idx} className="gallery-slide">
                 <img src={item.src} alt={item.title} />
@@ -229,7 +254,7 @@ function App() {
         </section>
 
         <section id="contacto" className="contact section-pad">
-          <div className="contact-inner">
+          <div className="contact-inner reveal-up">
             <p className="eyebrow">¿NOS VEMOS EN LA RUTA?</p>
             <h2>STREET<br /><em>FAMILY.</em></h2>
             <p>La carretera es más grande cuando se comparte.</p>
