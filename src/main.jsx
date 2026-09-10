@@ -67,8 +67,18 @@ function App() {
       });
 
       gsap.utils.toArray('.parallax-skull').forEach((elem) => {
+        // Continuous bobbing float
         gsap.to(elem, {
-          y: -150,
+          y: 25,
+          duration: 3,
+          yoyo: true,
+          repeat: -1,
+          ease: 'sine.inOut'
+        });
+        
+        // Scroll parallax using 'top' to avoid conflicting with 'y' transform
+        gsap.to(elem, {
+          top: '-=15%',
           scrollTrigger: {
             trigger: elem.parentElement,
             start: 'top bottom',
@@ -186,8 +196,6 @@ function App() {
         </section>
 
         <section id="club" className="intro section-pad">
-          <img src={skull1} className="floating-skull skull-1 parallax-skull" alt="" />
-          <img src={skull2} className="floating-skull skull-2 parallax-skull" alt="" />
           <div className="intro-bg" style={{ backgroundImage: `url(${tank})` }} />
           <div className="intro-overlay" />
           <div className="intro-content">
@@ -206,6 +214,8 @@ function App() {
               </div>
             </div>
           </div>
+          <img src={skull1} className="floating-skull skull-1 parallax-skull" alt="" />
+          <img src={skull2} className="floating-skull skull-2 parallax-skull" alt="" />
         </section>
 
         <section id="gillette" className="moto-section" ref={motoSectionRef}>
@@ -270,7 +280,6 @@ function App() {
         </section>
 
         <section id="contacto" className="contact section-pad">
-          <img src={skull2} className="floating-skull skull-3 parallax-skull" alt="" />
           <div className="contact-inner reveal-up">
             <p className="eyebrow">¿NOS VEMOS EN LA RUTA?</p>
             <h2>STREET<br /><em>FAMILY.</em></h2>
@@ -282,6 +291,7 @@ function App() {
               </a>
             </div>
           </div>
+          <img src={skull2} className="floating-skull skull-3 parallax-skull" alt="" />
         </section>
       </main>
 
