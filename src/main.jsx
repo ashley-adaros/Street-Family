@@ -41,6 +41,18 @@ function App() {
   const heroRef = useRef(null);
   const motoRef = useRef(null);
 
+  const skullConfigs = useMemo(() => {
+    return Array.from({ length: 15 }).map((_, i) => ({
+      id: i,
+      src: i % 2 === 0 ? skull1 : skull2,
+      top: `${(i * 6.5) + Math.random() * 3}%`,
+      left: i % 2 === 0 ? `${-2 + Math.random() * 12}%` : `${85 + Math.random() * 10}%`,
+      size: `${70 + Math.random() * 40}px`,
+      rot: `${Math.random() * 60 - 30}deg`,
+      delay: Math.random() * 2
+    }));
+  }, []);
+
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from('.hero-kicker', { y: 25, opacity: 0, duration: .8, delay: .15 });
@@ -66,23 +78,25 @@ function App() {
         });
       });
 
-      gsap.utils.toArray('.parallax-skull').forEach((elem) => {
+      gsap.utils.toArray('.parallax-skull').forEach((elem, i) => {
         // Continuous bobbing float
         gsap.to(elem, {
-          y: 25,
-          duration: 3,
+          y: 20 + (i % 5) * 5,
+          rotation: '+=5',
+          duration: 3 + (i % 3),
           yoyo: true,
           repeat: -1,
-          ease: 'sine.inOut'
+          ease: 'sine.inOut',
+          delay: i * 0.2
         });
         
-        // Scroll parallax using 'top' to avoid conflicting with 'y' transform
+        // Scroll parallax covering the whole page
         gsap.to(elem, {
-          top: '-=15%',
+          y: -200 - (i % 4) * 50,
           scrollTrigger: {
-            trigger: elem.parentElement,
-            start: 'top bottom',
-            end: 'bottom top',
+            trigger: 'main',
+            start: 'top top',
+            end: 'bottom bottom',
             scrub: true,
           }
         });
@@ -170,6 +184,22 @@ function App() {
       </header>
 
       <main>
+        {skullConfigs.map((c) => (
+          <img
+            key={c.id}
+            src={c.src}
+            className="floating-skull parallax-skull"
+            alt=""
+            style={{
+              top: c.top,
+              left: c.left,
+              width: c.size,
+              height: c.size,
+              transform: `rotate(${c.rot})`
+            }}
+          />
+        ))}
+
         <section id="inicio" className="hero" ref={heroRef}>
           {gallery.slice(0, 5).map((item, idx) => (
             <div
@@ -214,8 +244,6 @@ function App() {
               </div>
             </div>
           </div>
-          <img src={skull1} className="floating-skull skull-1 parallax-skull" alt="" />
-          <img src={skull2} className="floating-skull skull-2 parallax-skull" alt="" />
         </section>
 
         <section id="gillette" className="moto-section" ref={motoSectionRef}>
@@ -291,7 +319,6 @@ function App() {
               </a>
             </div>
           </div>
-          <img src={skull2} className="floating-skull skull-3 parallax-skull" alt="" />
         </section>
       </main>
 
