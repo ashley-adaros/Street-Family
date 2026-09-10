@@ -78,16 +78,20 @@ function App() {
       
       const setupScroll = () => {
         ctx = gsap.context(() => {
-          gsap.to(video, {
-            currentTime: EXPLODED_TIME,
+          const proxy = { time: 0 };
+          gsap.to(proxy, {
+            time: EXPLODED_TIME,
             ease: 'none',
             scrollTrigger: {
               trigger: motoSectionRef.current,
               start: 'top top',
               end: 'bottom bottom',
-              scrub: 1, // 1 second smoothing
+              scrub: 0.5,
               onUpdate: (self) => {
-                setDisassembled(self.progress > 0.85);
+                if (video.readyState >= 1) {
+                  video.currentTime = proxy.time;
+                  setDisassembled(self.progress > 0.85);
+                }
               }
             }
           });
