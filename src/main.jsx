@@ -67,20 +67,20 @@ function App() {
       });
 
       gsap.utils.toArray('.parallax-skull').forEach((elem, i) => {
-        // Continuous bobbing float
+        // Subtle continuous bobbing float
         gsap.to(elem, {
-          y: 20 + (i % 3) * 5,
-          rotation: '+=5',
-          duration: 3 + (i % 2),
+          y: 8 + (i % 3) * 3,
+          rotation: '+=2',
+          duration: 5 + (i % 3),
           yoyo: true,
           repeat: -1,
           ease: 'sine.inOut',
-          delay: i * 0.3
+          delay: i * 0.4
         });
         
-        // Scroll parallax within its section parent
+        // Gentle scroll parallax within its section parent
         gsap.to(elem, {
-          y: -150,
+          y: -40,
           scrollTrigger: {
             trigger: elem.parentElement,
             start: 'top bottom',
