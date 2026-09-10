@@ -22,7 +22,7 @@ const gallery = [
   { src: city, title: 'Street life', text: 'La familia también vive la ciudad.' },
   { src: ride, title: 'La máquina', text: 'Custom, carácter y personalidad.' },
   { src: tank, title: 'Detalles', text: 'Cada pieza cuenta una historia.' },
-  { src: aricaSunset, title: 'Nuestra Ciudad', text: 'Rodando por Arica al atardecer.', style: { objectPosition: 'left top' } },
+  { src: aricaSunset, title: 'Nuestra Ciudad', text: 'Rodando por Arica al atardecer.', style: { objectFit: 'contain', objectPosition: 'center' } },
 ];
 
 function App() {
