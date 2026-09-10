@@ -72,28 +72,44 @@ function App() {
   }, []);
 
   useEffect(() => {
+    let animationFrameId;
+    let targetTime = 0;
+    let currentVideoTime = 0;
+
+    const renderLoop = () => {
+      if (motoVideoRef.current) {
+        currentVideoTime += (targetTime - currentVideoTime) * 0.08; // Smooth lerp
+        if (Math.abs(motoVideoRef.current.currentTime - currentVideoTime) > 0.01) {
+           motoVideoRef.current.currentTime = currentVideoTime;
+        }
+      }
+      animationFrameId = requestAnimationFrame(renderLoop);
+    };
+    
+    renderLoop();
+
     const onScroll = () => {
       const y = window.scrollY;
       if (heroRef.current) heroRef.current.style.setProperty('--parallax', `${Math.round(y * 0.16)}px`);
       
-      if (motoSectionRef.current && motoVideoRef.current) {
+      if (motoSectionRef.current) {
         const rect = motoSectionRef.current.getBoundingClientRect();
         const scrollDistance = rect.height - window.innerHeight;
         const progress = Math.max(0, Math.min(1, -rect.top / scrollDistance));
         
-        let targetTime;
         if (progress <= 0.5) {
           targetTime = (progress / 0.5) * EXPLODED_TIME;
         } else {
           targetTime = EXPLODED_TIME - ((progress - 0.5) / 0.5) * EXPLODED_TIME;
         }
-        
-        motoVideoRef.current.currentTime = targetTime;
         setDisassembled(targetTime >= EXPLODED_TIME - 0.8);
       }
     };
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(animationFrameId);
+    };
   }, []);
 
   useEffect(() => {
