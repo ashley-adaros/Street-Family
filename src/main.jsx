@@ -258,8 +258,6 @@ function App() {
         </section>
 
         <section id="contacto" className="contact section-pad">
-          <div className="contact-bg" style={{ backgroundImage: `url(${road})` }} />
-          <div className="contact-overlay" />
           <div className="contact-inner reveal-up" style={{position: 'relative', zIndex: 1}}>
             <img src={skull2} style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 'clamp(400px, 60vw, 800px)', opacity: 0.7, zIndex: -1, pointerEvents: 'none', mixBlendMode: 'screen', WebkitMaskImage: 'radial-gradient(circle, black 40%, transparent 70%)', maskImage: 'radial-gradient(circle, black 40%, transparent 70%)'}} alt="" />
             <p className="eyebrow">¿NOS VEMOS EN LA RUTA?</p>
