@@ -14,6 +14,7 @@ import sunset from './assets/sunset.jpg';
 import ride from './assets/ride.jpg';
 import gillette from './assets/gillette-subi.jpg';
 import aricaSunset from './assets/arica_sunset.jpg';
+import coastalRide from './assets/coastal_ride.jpg';
 import explodedVideo from './assets/gillette-frames/gillette-subi-exploded-new.webm';
 
 const gallery = [
@@ -23,6 +24,7 @@ const gallery = [
   { src: ride, title: 'La máquina', text: 'Custom, carácter y personalidad.' },
   { src: tank, title: 'Detalles', text: 'Cada pieza cuenta una historia.' },
   { src: aricaSunset, title: 'Nuestra Ciudad', text: 'Rodando por Arica al atardecer.' },
+  { src: coastalRide, title: 'Ruta Costera', text: 'Bordeando la costa con la familia.' },
 ];
 
 function App() {
