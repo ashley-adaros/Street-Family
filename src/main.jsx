@@ -164,7 +164,7 @@ function App() {
           ))}
           <div className="hero-overlay" />
           <div className="hero-content">
-            <img src={skull1} className="floating-skull" style={{top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 'clamp(300px, 60vw, 800px)', opacity: 0.15, zIndex: -1}} alt="" />
+            <img src={skull1} className="floating-skull" style={{top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 'clamp(350px, 60vw, 800px)', opacity: 0.6, zIndex: 0, pointerEvents: 'none'}} alt="" />
             <div className="hero-kicker"><span /> MOTO GROUP · ARICA <span /></div>
             <h1 className="hero-title"><span>STREET</span><span>FAMILY</span></h1>
             <p className="hero-copy">CUSTOM · BROTHERHOOD · ROAD</p>
@@ -184,7 +184,7 @@ function App() {
                 <span className="logo-ring" />
               </div>
               <div className="intro-copy reveal-up" style={{position: 'relative'}}>
-                <img src={skull2} className="floating-skull" style={{top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 'clamp(250px, 40vw, 500px)', opacity: 0.1, zIndex: -1}} alt="" />
+                <img src={skull2} className="floating-skull" style={{top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 'clamp(280px, 40vw, 500px)', opacity: 0.5, zIndex: 0, pointerEvents: 'none'}} alt="" />
                 <p className="eyebrow">UNA FAMILIA SOBRE DOS RUEDAS</p>
                 <h2>NO SE TRATA SOLO<br /><em>DE MOTOS.</em></h2>
                 <p>Street Family nace de la pasión por las motocicletas, la personalización y la carretera. Un grupo donde cada máquina tiene personalidad y cada salida suma una historia.</p>
