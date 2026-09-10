@@ -118,6 +118,7 @@ function App() {
             onUpdate: (self) => {
               const frameIdx = Math.min(Math.round(proxy.frame), totalFrames);
               if (framesRef.current[frameIdx]) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.drawImage(framesRef.current[frameIdx], 0, 0);
               }
               setDisassembled(self.progress > 0.85);
