@@ -66,29 +66,7 @@ function App() {
         });
       });
 
-      gsap.utils.toArray('.parallax-skull').forEach((elem, i) => {
-        // Subtle continuous bobbing float
-        gsap.to(elem, {
-          y: 8 + (i % 3) * 3,
-          rotation: '+=2',
-          duration: 5 + (i % 3),
-          yoyo: true,
-          repeat: -1,
-          ease: 'sine.inOut',
-          delay: i * 0.4
-        });
-        
-        // Gentle scroll parallax within its section parent
-        gsap.to(elem, {
-          y: -40,
-          scrollTrigger: {
-            trigger: elem.parentElement,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true,
-          }
-        });
-      });
+
     });
     return () => ctx.revert();
   }, []);
@@ -173,8 +151,6 @@ function App() {
 
       <main>
         <section id="inicio" className="hero" ref={heroRef}>
-          <img src={skull1} className="floating-skull parallax-skull" style={{top: '15%', left: '5%', width: '90px', transform: 'rotate(15deg)'}} alt="" />
-          <img src={skull2} className="floating-skull parallax-skull" style={{top: '60%', right: '8%', width: '110px', transform: 'rotate(-20deg)'}} alt="" />
           {gallery.slice(0, 5).map((item, idx) => (
             <div
               key={idx}
@@ -188,17 +164,15 @@ function App() {
           ))}
           <div className="hero-overlay" />
           <div className="hero-content">
+            <img src={skull1} className="floating-skull" style={{top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 'clamp(300px, 60vw, 800px)', opacity: 0.15, zIndex: -1}} alt="" />
             <div className="hero-kicker"><span /> MOTO GROUP · ARICA <span /></div>
             <h1 className="hero-title"><span>STREET</span><span>FAMILY</span></h1>
             <p className="hero-copy">CUSTOM · BROTHERHOOD · ROAD</p>
           </div>
           <div className="hero-scroll">SCROLL <span>↓</span></div>
-          <img src={skull1} className="floating-skull parallax-skull" style={{top: '80%', left: '10%', width: '95px', transform: 'rotate(-10deg)'}} alt="" />
         </section>
 
         <section id="club" className="intro section-pad">
-          <img src={skull2} className="floating-skull parallax-skull" style={{top: '20%', right: '5%', width: '105px', transform: 'rotate(25deg)'}} alt="" />
-          <img src={skull1} className="floating-skull parallax-skull" style={{bottom: '15%', left: '5%', width: '80px', transform: 'rotate(-15deg)'}} alt="" />
           <div className="intro-bg" style={{ backgroundImage: `url(${tank})` }} />
           <div className="intro-overlay" />
           <div className="intro-content">
@@ -209,7 +183,8 @@ function App() {
                 <img src={logo} alt="Logo Street Family Moto Group" />
                 <span className="logo-ring" />
               </div>
-              <div className="intro-copy reveal-up">
+              <div className="intro-copy reveal-up" style={{position: 'relative'}}>
+                <img src={skull2} className="floating-skull" style={{top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 'clamp(250px, 40vw, 500px)', opacity: 0.1, zIndex: -1}} alt="" />
                 <p className="eyebrow">UNA FAMILIA SOBRE DOS RUEDAS</p>
                 <h2>NO SE TRATA SOLO<br /><em>DE MOTOS.</em></h2>
                 <p>Street Family nace de la pasión por las motocicletas, la personalización y la carretera. Un grupo donde cada máquina tiene personalidad y cada salida suma una historia.</p>
@@ -231,7 +206,6 @@ function App() {
               <div className="moto-note">
                 * Interactúa con el control para explorar el ensamblaje custom de la Gillette Subi.
               </div>
-              <img src={skull1} className="floating-skull parallax-skull" style={{top: '40%', right: '8%', width: '100px', transform: 'rotate(10deg)'}} alt="" />
               <div className="moto-grid" />
               <div className="moto-image-wrap" ref={motoRef}>
                 <video
