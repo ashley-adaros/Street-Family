@@ -75,12 +75,25 @@ function App() {
     let animationFrameId;
     let targetTime = 0;
     let currentVideoTime = 0;
+    let isSeeking = false;
 
     const renderLoop = () => {
-      if (motoVideoRef.current) {
-        currentVideoTime += (targetTime - currentVideoTime) * 0.08; // Smooth lerp
-        if (Math.abs(motoVideoRef.current.currentTime - currentVideoTime) > 0.01) {
-           motoVideoRef.current.currentTime = currentVideoTime;
+      const video = motoVideoRef.current;
+      if (video && video.readyState >= 1) {
+        // Clamp target time to actual video duration to prevent infinite seek freezing
+        const maxTime = video.duration || EXPLODED_TIME;
+        const clampedTarget = Math.min(targetTime, maxTime - 0.1);
+        
+        currentVideoTime += (clampedTarget - currentVideoTime) * 0.1;
+        
+        if (Math.abs(video.currentTime - currentVideoTime) > 0.05 && !isSeeking) {
+           isSeeking = true;
+           video.currentTime = currentVideoTime;
+           // Wait for seek to finish to avoid spamming the decoder
+           video.addEventListener('seeked', function onSeeked() {
+              isSeeking = false;
+              video.removeEventListener('seeked', onSeeked);
+           }, { once: true });
         }
       }
       animationFrameId = requestAnimationFrame(renderLoop);
