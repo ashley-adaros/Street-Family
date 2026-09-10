@@ -94,7 +94,7 @@ function App() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setHeroIndex((i) => (i + 1) % gallery.length);
+      setHeroIndex((i) => (i + 1) % 5);
     }, 3000);
     return () => clearInterval(interval);
   }, []);
@@ -147,7 +147,7 @@ function App() {
 
       <main>
         <section id="inicio" className="hero" ref={heroRef}>
-          {gallery.map((item, idx) => (
+          {gallery.slice(0, 5).map((item, idx) => (
             <div
               key={idx}
               className="hero-image"
