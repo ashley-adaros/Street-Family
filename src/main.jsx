@@ -279,19 +279,12 @@ function App() {
                   style={{ width: '100%', height: '100%', objectFit: 'contain', position: 'relative', opacity: framesLoaded < 100 ? 0 : 1, transition: 'opacity 0.5s ease', zIndex: 2 }}
                 />
                 {framesLoaded < 100 && (
-                  <div className="moto-hud">
-                    <div className="hud-brackets">
-                      <span className="tl" /><span className="tr" />
-                      <span className="bl" /><span className="br" />
+                  <div className="moto-skull-loader">
+                    <div style={{ position: 'relative', width: '100px', height: '100px' }}>
+                      <img src={skull2} className="skull-base" alt="Cargando..." />
+                      <img src={skull2} className="skull-fill" style={{ clipPath: `inset(${100 - framesLoaded}% 0 0 0)` }} alt="" />
                     </div>
-                    <div className="hud-laser" />
-                    <div className="moto-loader">
-                      <div className="loader-text">ESCANEANDO COMPONENTES</div>
-                      <div className="loader-bar">
-                        <div className="loader-fill" style={{ width: `${framesLoaded}%` }} />
-                      </div>
-                      <div className="loader-pct">SYS.{framesLoaded}</div>
-                    </div>
+                    <div className="loader-pct">{framesLoaded}%</div>
                   </div>
                 )}
                 <div className="scanline" />
