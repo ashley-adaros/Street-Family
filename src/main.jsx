@@ -83,13 +83,17 @@ function App() {
     let ctxGSAP;
     const loadFrames = async () => {
       const ctx = canvas.getContext('2d', { alpha: false });
-      canvas.width = video.videoWidth || 1920;
-      canvas.height = video.videoHeight || 1080;
       
-      const totalFrames = Math.floor(EXPLODED_TIME * 30); // 30 fps
+      // Optimize: reduce internal resolution by 25% for much faster drawing
+      canvas.width = (video.videoWidth || 1920) * 0.75;
+      canvas.height = (video.videoHeight || 1080) * 0.75;
+      
+      // Optimize: 20 FPS is more than enough for a smooth scrub, saves 33% load time
+      const fps = 20;
+      const totalFrames = Math.floor(EXPLODED_TIME * fps);
       
       for (let i = 0; i <= totalFrames; i++) {
-        video.currentTime = i / 30;
+        video.currentTime = i / fps;
         await new Promise(resolve => {
           video.addEventListener('seeked', resolve, { once: true });
         });
@@ -98,6 +102,9 @@ function App() {
         offscreenCanvas.height = canvas.height;
         offscreenCanvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
         framesRef.current.push(offscreenCanvas);
+        
+        // Use requestAnimationFrame to let the UI update and not freeze the browser completely
+        await new Promise(resolve => requestAnimationFrame(resolve));
         setFramesLoaded(Math.round((i / totalFrames) * 100));
       }
       
