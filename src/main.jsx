@@ -219,6 +219,29 @@ function App() {
                   className="moto-video"
                   style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                 />
+                
+                {/* Tech Viewfinder / HUD Persistent */}
+                <div className="moto-hud-persistent">
+                   <div className="hud-corner top-left"></div>
+                   <div className="hud-corner top-right"></div>
+                   <div className="hud-corner bottom-left"></div>
+                   <div className="hud-corner bottom-right"></div>
+                   
+                   <div className="hud-data bottom-left-data">
+                     <div className="data-title">POWERPLANT</div>
+                     <div className="data-val">400CC V-TWIN</div>
+                   </div>
+                   
+                   <div className="hud-data bottom-right-data">
+                     <div className="data-title">CHASSIS BUILD</div>
+                     <div className="data-val">CUSTOM HARDTAIL</div>
+                   </div>
+
+                   <div className="hud-data top-right-data">
+                     <div className="data-status"><span className="dot"></span> EXPLODED VIEW</div>
+                   </div>
+                </div>
+
                 <div className="scanline" />
               </div>
               <div className="moto-badge">HONDA STEED · GILLETTE SUBI <b>01</b></div>
