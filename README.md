@@ -1,6 +1,18 @@
 # Street Family Moto Group — React + Vite
 
-![Screenshot de Street Family](./public/screenshot.png)
+![Hero Section](./public/screenshot-hero.png)
+
+## Vistas del Sitio
+
+<details open>
+<summary><b>Ver Capturas</b></summary>
+<br>
+
+![Intro Section](./public/screenshot-intro.png)
+![Moto Section](./public/screenshot-moto.png)
+![Gallery Section](./public/screenshot-gallery.png)
+![Contact Section](./public/screenshot-contact.png)
+</details>
 
 Landing page del club Street Family, con estética custom/biker y foco en la Honda Steed "Gillette Subi".
 
