@@ -17,7 +17,7 @@ import aricaSunset from './assets/arica_sunset.jpg';
 import coastalRide from './assets/coastal_ride.jpg';
 import skull1 from './assets/skull1.jpg';
 import skull2 from './assets/skull2.jpg';
-import explodedVideo from './assets/gillette-frames/moto.mp4';
+import explodedVideo from './assets/gillette-frames/moto-v2.mp4';
 
 const gallery = [
   { src: sunset, title: 'Rodar juntos', text: 'Atardeceres, carretera y kilómetros compartidos.' },
