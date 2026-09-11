@@ -267,10 +267,10 @@ function App() {
 
         <section id="galeria" className="gallery section-pad">
           <div className="section-label reveal-up">03 / GALERÍA</div>
-          <div className="gallery-head reveal-up">
+          <div className="gallery-head">
             <div>
-              <p className="eyebrow">MEMORIAS DE LA RUTA</p>
-              <h2>EN LA <em>CALLE</em></h2>
+              <div className="section-label">MEMORIAS DE LA RUTA</div>
+              <h2>LA <em>HERMANDAD</em></h2>
             </div>
             <div className="gallery-controls">
               <button onClick={() => scrollGallery(-1)}>←</button>
