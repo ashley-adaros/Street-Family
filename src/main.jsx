@@ -209,6 +209,8 @@ function App() {
                   muted
                   loop
                   playsInline
+                  disablePictureInPicture
+                  disableRemotePlayback
                   preload="auto"
                   className="moto-video"
                   style={{ width: '100%', height: '100%', objectFit: 'contain' }}
