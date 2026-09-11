@@ -33,13 +33,11 @@ function App() {
   const [menu, setMenu] = useState(false);
   const [heroIndex, setHeroIndex] = useState(0);
   const [galleryIndex, setGalleryIndex] = useState(0);
-  const [disassembled, setDisassembled] = useState(false);
-  const motoVideoRef = useRef(null);
-  const motoSectionRef = useRef(null);
-  const EXPLODED_TIME = 5.2;
-  const END_TIME = 10;
   const heroRef = useRef(null);
   const motoRef = useRef(null);
+  const motoVideoRef = useRef(null);
+  const motoSectionRef = useRef(null);
+  const contactRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -71,75 +69,18 @@ function App() {
     return () => ctx.revert();
   }, []);
 
-  const motoCanvasRef = useRef(null);
-  const [framesLoaded, setFramesLoaded] = useState(0);
-  const framesRef = useRef([]);
-
   useEffect(() => {
-    const video = motoVideoRef.current;
-    const canvas = motoCanvasRef.current;
-    if (!video || !canvas) return;
-
-    let ctxGSAP;
-    const loadFrames = async () => {
-      const ctx = canvas.getContext('2d', { alpha: false });
-      
-      // Optimize: reduce internal resolution by 25% for much faster drawing
-      canvas.width = (video.videoWidth || 1920) * 0.75;
-      canvas.height = (video.videoHeight || 1080) * 0.75;
-      
-      // Optimize: 20 FPS is more than enough for a smooth scrub, saves 33% load time
-      const fps = 20;
-      const totalFrames = Math.floor(EXPLODED_TIME * fps);
-      
-      for (let i = 0; i <= totalFrames; i++) {
-        video.currentTime = i / fps;
-        await new Promise(resolve => {
-          video.addEventListener('seeked', resolve, { once: true });
-        });
-        const offscreenCanvas = document.createElement('canvas');
-        offscreenCanvas.width = canvas.width;
-        offscreenCanvas.height = canvas.height;
-        offscreenCanvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-        framesRef.current.push(offscreenCanvas);
-        
-        // Use requestAnimationFrame to let the UI update and not freeze the browser completely
-        await new Promise(resolve => requestAnimationFrame(resolve));
-        setFramesLoaded(Math.round((i / totalFrames) * 100));
-      }
-      
-      // Initial draw
-      ctx.drawImage(framesRef.current[0], 0, 0);
-
-      // Setup GSAP
-      ctxGSAP = gsap.context(() => {
-        const proxy = { frame: 0 };
-        gsap.to(proxy, {
-          frame: totalFrames,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: motoSectionRef.current,
-            start: 'top top',
-            end: 'bottom bottom',
-            scrub: 0.5,
-            onUpdate: (self) => {
-              const frameIdx = Math.min(Math.round(proxy.frame), totalFrames);
-              if (framesRef.current[frameIdx]) {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.drawImage(framesRef.current[frameIdx], 0, 0);
-              }
-              setDisassembled(self.progress > 0.85);
-            }
-          }
-        });
+    let ctxGSAP = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: motoSectionRef.current,
+        start: 'top 75%',
+        end: 'bottom 25%',
+        onEnter: () => motoVideoRef.current && motoVideoRef.current.play(),
+        onLeave: () => motoVideoRef.current && motoVideoRef.current.pause(),
+        onEnterBack: () => motoVideoRef.current && motoVideoRef.current.play(),
+        onLeaveBack: () => motoVideoRef.current && motoVideoRef.current.pause(),
       });
-    };
-
-    if (video.readyState >= 2) {
-      loadFrames();
-    } else {
-      video.addEventListener('loadeddata', loadFrames, { once: true });
-    }
+    });
 
     const onScroll = () => {
       const y = window.scrollY;
@@ -260,36 +201,20 @@ function App() {
 
             <div className="moto-stage moto-stage-video reveal-up">
               <div className="moto-glow" />
-              <div className="moto-note">
-                * Desliza hacia abajo para explorar el ensamblaje pieza por pieza.
-              </div>
               <div className="moto-grid" />
-              <div className="moto-image-wrap" ref={motoRef} style={{ position: 'relative' }}>
+              <div className="moto-image-wrap" ref={motoRef}>
                 <video
                   ref={motoVideoRef}
                   src={explodedVideo}
                   muted
+                  loop
                   playsInline
                   preload="auto"
-                  style={{ width: '100%', height: '100%', objectFit: 'contain', position: 'absolute', top: 0, left: 0, opacity: framesLoaded < 100 ? 1 : 0, transition: 'opacity 0.5s ease' }}
+                  className="moto-video"
+                  style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                 />
-                <canvas 
-                  ref={motoCanvasRef} 
-                  className="moto-video moto-frame" 
-                  style={{ width: '100%', height: '100%', objectFit: 'contain', position: 'relative', opacity: framesLoaded < 100 ? 0 : 1, transition: 'opacity 0.5s ease', zIndex: 2 }}
-                />
-                {framesLoaded < 100 && (
-                  <div className="moto-skull-loader">
-                    <div style={{ position: 'relative', width: '100px', height: '100px' }}>
-                      <img src={skull2} className="skull-base" alt="Cargando..." />
-                      <img src={skull2} className="skull-fill" style={{ clipPath: `inset(${100 - framesLoaded}% 0 0 0)` }} alt="" />
-                    </div>
-                    <div className="loader-pct">{framesLoaded}%</div>
-                  </div>
-                )}
                 <div className="scanline" />
               </div>
-              <div className="moto-status"><span className={disassembled ? 'dot hot' : 'dot'} />{disassembled ? 'VISTA EXPLOTADA' : 'MÁQUINA LISTA'}</div>
               <div className="moto-badge">HONDA STEED · GILLETTE SUBI <b>01</b></div>
             </div>
           </div>
