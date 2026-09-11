@@ -70,6 +70,10 @@ function App() {
   }, []);
 
   useEffect(() => {
+    if (motoVideoRef.current) {
+      motoVideoRef.current.playbackRate = 1.75; // Acelera el video al 175% de velocidad
+    }
+    
     let ctxGSAP = gsap.context(() => {
       ScrollTrigger.create({
         trigger: motoSectionRef.current,
