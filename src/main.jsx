@@ -257,17 +257,6 @@ function App() {
               <div><h2>HONDA <em>STEED</em></h2></div>
               <p>Una custom con identidad propia.</p>
             </div>
-            
-            <div className="moto-story reveal-up">
-              <p>
-                Conocida internamente como la <strong>"Gillette Subi"</strong>, esta Honda Steed 400 fue desarmada hasta el chasis y reconstruida en el garaje de Street Family. Un proyecto que respeta el estilo <em>chopper</em> de la vieja escuela, pero con piezas artesanales hechas a medida para las calles de Arica. 
-              </p>
-              <div className="moto-specs">
-                <div><strong>400cc</strong><span>MOTOR V-TWIN</span></div>
-                <div><strong>CUSTOM</strong><span>100% HECHO A MANO</span></div>
-                <div><strong>HARDTAIL</strong><span>CHASIS MODIFICADO</span></div>
-              </div>
-            </div>
 
             <div className="moto-stage moto-stage-video reveal-up">
               <div className="moto-glow" />
@@ -290,12 +279,19 @@ function App() {
                   style={{ width: '100%', height: '100%', objectFit: 'contain', position: 'relative', opacity: framesLoaded < 100 ? 0 : 1, transition: 'opacity 0.5s ease', zIndex: 2 }}
                 />
                 {framesLoaded < 100 && (
-                  <div className="moto-loader">
-                    <div className="loader-text">CALIBRANDO MÁQUINA</div>
-                    <div className="loader-bar">
-                      <div className="loader-fill" style={{ width: `${framesLoaded}%` }} />
+                  <div className="moto-hud">
+                    <div className="hud-brackets">
+                      <span className="tl" /><span className="tr" />
+                      <span className="bl" /><span className="br" />
                     </div>
-                    <div className="loader-pct">{framesLoaded}%</div>
+                    <div className="hud-laser" />
+                    <div className="moto-loader">
+                      <div className="loader-text">ESCANEANDO COMPONENTES</div>
+                      <div className="loader-bar">
+                        <div className="loader-fill" style={{ width: `${framesLoaded}%` }} />
+                      </div>
+                      <div className="loader-pct">SYS.{framesLoaded}</div>
+                    </div>
                   </div>
                 )}
                 <div className="scanline" />
