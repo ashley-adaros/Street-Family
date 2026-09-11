@@ -77,7 +77,7 @@ function App() {
     let ctxGSAP = gsap.context(() => {
       ScrollTrigger.create({
         trigger: motoSectionRef.current,
-        start: 'center center',
+        start: 'top 60%',
         end: 'bottom 25%',
         onEnter: () => {
           if (motoVideoRef.current) {
