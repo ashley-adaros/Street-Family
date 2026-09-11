@@ -257,25 +257,37 @@ function App() {
               <div><h2>HONDA <em>STEED</em></h2></div>
               <p>Una custom con identidad propia.</p>
             </div>
+            
+            <div className="moto-story reveal-up">
+              <p>
+                Conocida internamente como la <strong>"Gillette Subi"</strong>, esta Honda Steed 400 fue desarmada hasta el chasis y reconstruida en el garaje de Street Family. Un proyecto que respeta el estilo <em>chopper</em> de la vieja escuela, pero con piezas artesanales hechas a medida para las calles de Arica. 
+              </p>
+              <div className="moto-specs">
+                <div><strong>400cc</strong><span>MOTOR V-TWIN</span></div>
+                <div><strong>CUSTOM</strong><span>100% HECHO A MANO</span></div>
+                <div><strong>HARDTAIL</strong><span>CHASIS MODIFICADO</span></div>
+              </div>
+            </div>
+
             <div className="moto-stage moto-stage-video reveal-up">
               <div className="moto-glow" />
               <div className="moto-note">
-                * Interactúa con el control para explorar el ensamblaje custom de la Gillette Subi.
+                * Desliza hacia abajo para explorar el ensamblaje pieza por pieza.
               </div>
               <div className="moto-grid" />
-              <div className="moto-image-wrap" ref={motoRef}>
+              <div className="moto-image-wrap" ref={motoRef} style={{ position: 'relative' }}>
                 <video
                   ref={motoVideoRef}
                   src={explodedVideo}
                   muted
                   playsInline
                   preload="auto"
-                  style={{ display: 'none' }}
+                  style={{ width: '100%', height: '100%', objectFit: 'contain', position: 'absolute', top: 0, left: 0, opacity: framesLoaded < 100 ? 1 : 0, transition: 'opacity 0.5s ease' }}
                 />
                 <canvas 
                   ref={motoCanvasRef} 
                   className="moto-video moto-frame" 
-                  style={{ width: '100%', height: '100%', objectFit: 'contain', opacity: framesLoaded < 100 ? 0 : 1, transition: 'opacity 0.5s ease' }}
+                  style={{ width: '100%', height: '100%', objectFit: 'contain', position: 'relative', opacity: framesLoaded < 100 ? 0 : 1, transition: 'opacity 0.5s ease', zIndex: 2 }}
                 />
                 {framesLoaded < 100 && (
                   <div className="moto-loader">
