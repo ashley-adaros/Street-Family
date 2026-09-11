@@ -77,11 +77,21 @@ function App() {
     let ctxGSAP = gsap.context(() => {
       ScrollTrigger.create({
         trigger: motoSectionRef.current,
-        start: 'top 75%',
+        start: 'center center',
         end: 'bottom 25%',
-        onEnter: () => motoVideoRef.current && motoVideoRef.current.play(),
+        onEnter: () => {
+          if (motoVideoRef.current) {
+            motoVideoRef.current.currentTime = 0;
+            motoVideoRef.current.play();
+          }
+        },
         onLeave: () => motoVideoRef.current && motoVideoRef.current.pause(),
-        onEnterBack: () => motoVideoRef.current && motoVideoRef.current.play(),
+        onEnterBack: () => {
+          if (motoVideoRef.current) {
+            motoVideoRef.current.currentTime = 0;
+            motoVideoRef.current.play();
+          }
+        },
         onLeaveBack: () => motoVideoRef.current && motoVideoRef.current.pause(),
       });
     });
